@@ -2,36 +2,36 @@ from solid import *
 from solid.utils import *
 
 res = union()(
-    cube([15, 5, 2.5], center=True),
-    translate([1.25, 0, 2.5 - 0.001])(cube([7.5, 5, 2.5], center=True)),
-    translate([-5, -3.75, 0])(
+    cube([50, 20, 10], center=True),
+    translate([5, 0, 10 - 0.001])(cube([30, 20, 10], center=True)),
+    translate([-20, -15, 0])(
         rotate([90, 0, 0])(
-            cylinder(h=0.75, r=2, center=True)
+            cylinder(h=3, r=8, center=True)
         )
     ),
-    translate([-5, 3.75, 0])(
+    translate([-20, 15, 0])(
         rotate([90, 0, 0])(
-            cylinder(h=0.75, r=2, center=True)
+            cylinder(h=3, r=8, center=True)
         )
     ),
-    translate([5, -3.75, 0])(
+    translate([20, -15, 0])(
         rotate([90, 0, 0])(
-            cylinder(h=0.75, r=2, center=True)
+            cylinder(h=3, r=8, center=True)
         )
     ),
-    translate([5, 3.75, 0])(
+    translate([20, 15, 0])(
         rotate([90, 0, 0])(
-            cylinder(h=0.75, r=2, center=True)
+            cylinder(h=3, r=8, center=True)
         )
     ),
-    translate([-5, 0, 0])(
+    translate([-20, 0, 0])(
         rotate([90, 0, 0])(
-            cylinder(h=7.5, r=0.5, center=True)
+            cylinder(h=30, r=2, center=True)
         )
     ),
-    translate([5, 0, 0])(
+    translate([20, 0, 0])(
         rotate([90, 0, 0])(
-            cylinder(h=7.5, r=0.5, center=True)
+            cylinder(h=30, r=2, center=True)
         )
     )
 )
