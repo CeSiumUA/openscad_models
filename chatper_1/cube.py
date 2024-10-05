@@ -36,4 +36,4 @@ res = union()(
     )
 )
 
-scad_render_to_file(res, 'cube.scad')
+scad_render_to_file(res, 'cube.scad', file_header='$fa = 1;$fs = 0.1;')
