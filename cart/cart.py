@@ -43,4 +43,4 @@ center_axel = rotate([0, 90, 0])(
 
 res = front_rear_axels + center_axel
 
-scad_render_to_file(res, 'cube.scad', file_header='$fa = 1;\n$fs = 0.1;')
+scad_render_to_file(res, OUTPUT_FILE_NAME, file_header='$fa = 1;\n$fs = 0.1;')
