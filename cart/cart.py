@@ -4,7 +4,11 @@ from solid.utils import *
 OUTPUT_FILE_NAME = 'cart.scad'
 AXEL_HORIZONTAL_OFFSET = 30
 AXEL_RADIUS = 5
+WHEEL_INNER_RADIUS = AXEL_RADIUS + 0.35
 AXEL_LENGTH = 60
+WHEEL_MIN_WIDTH = 4
+WHEEL_MAX_WIDTH = 8
+WHEEL_OUTER_RADIOS = 10
 
 front_rear_axels = union()
 
@@ -15,6 +19,8 @@ for i in [-AXEL_HORIZONTAL_OFFSET, AXEL_HORIZONTAL_OFFSET]:
 
     cutting_cubes = union()
     wheel_bays = union()
+
+    wheels = union()
 
     for j in [-1, 1]:
         cutting_cubes += translate([0, j * ((AXEL_LENGTH / 2) - 2.5), 0])(
@@ -30,8 +36,27 @@ for i in [-AXEL_HORIZONTAL_OFFSET, AXEL_HORIZONTAL_OFFSET]:
             )
         )
 
+        tire = rotate_extrude(360)(
+            polygon(points=[[-WHEEL_INNER_RADIUS, -WHEEL_MIN_WIDTH/2], [-WHEEL_INNER_RADIUS, WHEEL_MIN_WIDTH/2], [-WHEEL_OUTER_RADIOS, WHEEL_MAX_WIDTH/2], [-WHEEL_OUTER_RADIOS, -WHEEL_MAX_WIDTH/2]])
+        )
+
+        rim = rotate_extrude(360)(
+            translate([WHEEL_INNER_RADIUS, 0])(
+                square([1, WHEEL_MIN_WIDTH], center=True)
+            )
+        )
+
+        wheels += translate([0, j * ((AXEL_LENGTH / 2) + 30), 0])(
+            union()(
+                tire,
+                rim
+            )
+        )
+
     axel_base -= cutting_cubes
     axel_base -= wheel_bays
+
+    axel_base += wheels
 
     front_rear_axels += translate([i, 0, 0])(
         axel_base
