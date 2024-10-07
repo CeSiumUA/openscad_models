@@ -1,5 +1,6 @@
 from solid import *
 from solid.utils import *
+from math import sin, cos, pi
 
 OUTPUT_FILE_NAME = 'cart.scad'
 AXEL_HORIZONTAL_OFFSET = 30
@@ -8,7 +9,7 @@ WHEEL_INNER_RADIUS = AXEL_RADIUS + 0.35
 AXEL_LENGTH = 60
 WHEEL_MIN_WIDTH = 4
 WHEEL_MAX_WIDTH = 8
-WHEEL_OUTER_RADIOS = 10
+WHEEL_OUTER_RADIUS = 10
 
 front_rear_axels = union()
 
@@ -36,9 +37,20 @@ for i in [-AXEL_HORIZONTAL_OFFSET, AXEL_HORIZONTAL_OFFSET]:
             )
         )
 
-        tire = rotate_extrude(360)(
-            polygon(points=[[-WHEEL_INNER_RADIUS, -WHEEL_MIN_WIDTH/2], [-WHEEL_INNER_RADIUS, WHEEL_MIN_WIDTH/2], [-WHEEL_OUTER_RADIOS, WHEEL_MAX_WIDTH/2], [-WHEEL_OUTER_RADIOS, -WHEEL_MAX_WIDTH/2]])
+        bold_tire = rotate_extrude(360)(
+            polygon(points=[[-WHEEL_INNER_RADIUS, -WHEEL_MIN_WIDTH/2], [-WHEEL_INNER_RADIUS, WHEEL_MIN_WIDTH/2], [-WHEEL_OUTER_RADIUS, WHEEL_MAX_WIDTH/2], [-WHEEL_OUTER_RADIUS, -WHEEL_MAX_WIDTH/2]])
         )
+
+        tire = bold_tire
+
+        for protector_angle in range(0, 360, 12):
+            dx = WHEEL_OUTER_RADIUS * cos(protector_angle * pi / 180)
+            dy = WHEEL_OUTER_RADIUS * sin(protector_angle * pi / 180)
+            tire -= translate([dx, dy, 0])(
+                rotate([0, 0, protector_angle])(
+                    cube([1, 1, WHEEL_MAX_WIDTH], center=True)
+                )
+            )
 
         rim = rotate_extrude(360)(
             translate([WHEEL_INNER_RADIUS, 0])(
