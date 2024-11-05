@@ -7,7 +7,7 @@ OUTPUT_FILE_NAME = 'gimbal_base.scad'
 BASE_THICKNESS = 6.2
 BASE_WIDTH = 60
 ATTACHMENT_WIDTH = 39.5
-RAY_LENGTH = 120
+RAY_LENGTH = 90
 RAY_WIDTH = 15
 RAY_THICKNESS = BASE_THICKNESS
 NUT_HOLE_THICKNESS = 2
@@ -35,13 +35,13 @@ for i in [(-ATTACHMENT_WIDTH / 2) + 4.3, (ATTACHMENT_WIDTH / 2) - 4.3]:
 
 for i in range(0, 360, 45):
     rays += rotate([0, 0, i])(cube([RAY_LENGTH, RAY_WIDTH, RAY_THICKNESS], center=True))
-    corner_supports += translate([cos(i * pi / 180) * (RAY_LENGTH / 1.52), sin(i * pi / 180) * (RAY_LENGTH / 1.52), -(RAY_LENGTH / 5.91)])(
+    corner_supports += translate([cos(i * pi / 180) * (RAY_LENGTH / 1.535), sin(i * pi / 180) * (RAY_LENGTH / 1.535), -(RAY_LENGTH / 6)])(
         rotate([0, CORNER_SUPPORT_ANGLE, i])(
             cube([RAY_LENGTH / 2, RAY_WIDTH, BASE_THICKNESS], center=True)
         )
     )
 
-leveler = translate([0, 0, -63])(
+leveler = translate([0, 0, -53])(
     cube([300, 300, 50], center=True)
 )
 
